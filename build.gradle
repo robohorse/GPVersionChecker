@@ -55,7 +55,7 @@ ext {
     siteUrl = 'https://github.com/robohorse/gpversionchecker'
     gitUrl = 'https://github.com/robohorse/gpversionchecker.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.1'
 
     developerId = 'robohorse'
     developerName = 'Vadim'

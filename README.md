@@ -14,7 +14,7 @@ Android Library for checking the current uploaded version on the Google Play
 ```
   and
 ```gradle
-compile 'com.robohorse.gpversionchecker:gpversionchecker:1.0.0'
+compile 'com.robohorse.gpversionchecker:gpversionchecker:1.0.1'
 ```
 2) Add 
 ```java 
