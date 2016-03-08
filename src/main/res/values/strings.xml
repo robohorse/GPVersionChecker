@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GPVersionChecker</string>
+
+    <string name="gpvch_header">New version is available!</string>
+    <string name="gpvch_button_positive">Update current version</string>
+    <string name="gpvch_button_negative">Remind me later</string>
+    <string name="gpvch_new_version_info_title">Whats new:</string>
+
+    <string name="gpvch_google_play_url">https://play.google.com/store/apps/details?id=</string>
+</resources>
