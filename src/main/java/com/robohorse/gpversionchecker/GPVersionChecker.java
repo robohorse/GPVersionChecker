@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.robohorse.gpversionchecker.base.CheckingStrategy;
+import com.robohorse.gpversionchecker.debug.ALog;
 import com.robohorse.gpversionchecker.domain.Version;
 import com.robohorse.gpversionchecker.helper.SharedPrefsHelper;
 import com.robohorse.gpversionchecker.helper.UIHelper;
@@ -18,6 +19,7 @@ public class GPVersionChecker {
     private static WeakReference<Activity> activityWeakReference;
     private static VersionInfoListener versionInfoListener;
     private static CheckingStrategy strategy = CheckingStrategy.ALWAYS;
+    public static boolean useLog;
 
     private static void proceed() {
         Activity activity = activityWeakReference.get();
@@ -28,6 +30,8 @@ public class GPVersionChecker {
         if (strategy == CheckingStrategy.ALWAYS ||
                 (strategy == CheckingStrategy.ONE_PER_DAY && SharedPrefsHelper.needToCheckVersion(activity))) {
             activity.startService(new Intent(activity, VersionCheckerService.class));
+        } else {
+            ALog.d("Skipped");
         }
     }
 
@@ -60,6 +64,11 @@ public class GPVersionChecker {
 
         public Builder setVersionInfoListener(VersionInfoListener versionInfoListener) {
             GPVersionChecker.versionInfoListener = versionInfoListener;
+            return this;
+        }
+
+        public Builder setLoggingEbable(boolean useLog) {
+            GPVersionChecker.useLog = useLog;
             return this;
         }
 

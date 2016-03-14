@@ -7,7 +7,9 @@
         android:allowBackup="true"
         android:supportsRtl="true">
 
-        <service android:name=".VersionCheckerService" />
+        <service
+            android:name=".VersionCheckerService"
+            android:exported="false" />
 
     </application>
 

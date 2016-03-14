@@ -1,5 +1,6 @@
 package com.robohorse.gpversionchecker;
 
+import android.app.IntentService;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.text.TextUtils;
 
+import com.robohorse.gpversionchecker.debug.ALog;
 import com.robohorse.gpversionchecker.domain.Version;
 
 import org.jsoup.Jsoup;
@@ -19,36 +21,26 @@ import java.util.concurrent.Executors;
 /**
  * Created by robohorse on 06.03.16.
  */
-public class VersionCheckerService extends Service {
+public class VersionCheckerService extends IntentService {
     private static final String REFERRER = "http://www.google.com";
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0";
     private static final String DIV_VERSION = "div[itemprop=softwareVersion]";
     private static final String DIV_CHANGES = "div[class=recent-change]";
 
-    private static final int THREAD_SIZE = 1;
     private static final int CONNECTION_TIMEOUT = 30000;
 
-    public synchronized int onStartCommand(Intent intent, int flags, int startId) {
-        DataGetRunner dataGetRunner = new DataGetRunner();
-        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_SIZE);
-        executorService.execute(dataGetRunner);
-        return super.onStartCommand(intent, flags, startId);
+    public VersionCheckerService() {
+        super("GPVersionChecker");
     }
 
     @Override
-    public IBinder onBind(Intent arg0) {
-        return null;
-    }
-
-    private class DataGetRunner implements Runnable {
-        public void run() {
-            Version version = obtainDataFromGooglePlay();
-
-            if (null != version) {
-                GPVersionChecker.onResponseReceived(version);
-            }
-            stopSelf();
+    protected void onHandleIntent(Intent intent) {
+        Version version = obtainDataFromGooglePlay();
+        if (null != version) {
+            ALog.d("Response received: " + version.toString());
+            GPVersionChecker.onResponseReceived(version);
         }
+        stopSelf();
     }
 
     private Version obtainDataFromGooglePlay() {
@@ -66,6 +58,8 @@ public class VersionCheckerService extends Service {
         Context context = getApplicationContext();
         final String packageName = context.getPackageName();
         final String curVersion = context.getPackageManager().getPackageInfo(packageName, 0).versionName;
+
+        ALog.d("request params: package - " + packageName + ", current app version: " + curVersion);
 
         final Document document = Jsoup.connect(context.getString(R.string.gpvch_google_play_url) + packageName)
                 .timeout(CONNECTION_TIMEOUT)

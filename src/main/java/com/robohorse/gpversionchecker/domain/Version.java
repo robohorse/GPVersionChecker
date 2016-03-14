@@ -1,9 +1,12 @@
 package com.robohorse.gpversionchecker.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by robohorse on 06.03.16.
  */
-public class Version {
+public class Version implements Serializable {
+    private static final long serialVersionUID = 2635L;
     private String newVersionCode;
     private String changes;
     private boolean needToUpdate;
@@ -15,14 +18,25 @@ public class Version {
     }
 
     public String getNewVersionCode() {
-        return newVersionCode;
+        return newVersionCode == null ? "" : newVersionCode;
     }
 
     public String getChanges() {
-        return changes;
+        return changes == null ? "" : changes;
     }
 
     public boolean isNeedToUpdate() {
         return needToUpdate;
+    }
+
+    @Override
+    public String toString() {
+        final String newLine = System.getProperty("line.separator");
+
+        return new StringBuilder()
+                .append(newLine)
+                .append("Google play app version: " + getNewVersionCode() + newLine)
+                .append("with changes: " + getChanges() + newLine)
+                .append("update required: " + isNeedToUpdate()).toString();
     }
 }
