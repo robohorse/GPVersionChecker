@@ -1,5 +1,8 @@
 # GPVersionChecker
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-GPVersionChecker-green.svg?style=true)](https://android-arsenal.com/details/1/3281)
+<p>
 Android Library for checking the current uploaded version on the Google Play
+</p>
 
 #Quick start
 
@@ -103,6 +106,7 @@ The following code will block showing of the default dialog window, but gives in
                 })
                 .create();
 ```
+
 
 
 #About
