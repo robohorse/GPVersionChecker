@@ -74,13 +74,13 @@ public class VersionCheckerService extends IntentService {
         final String changes = document.select(DIV_CHANGES)
                 .html();
 
+        ALog.d("current version: " + curVersion + "; google play version: " + newVersion);
+
         if (TextUtils.isEmpty(newVersion) || TextUtils.isEmpty(curVersion) || newVersion.equals(curVersion)) {
             return null;
         }
 
-        final int versionCurrent = Integer.parseInt(curVersion.replace(".", ""));
-        final int versionNew = Integer.parseInt(newVersion.replace(".", ""));
-        final boolean needToUpdate = versionNew > versionCurrent;
+        final boolean needToUpdate = !curVersion.equals(newVersion);
 
         return new Version(newVersion, changes, needToUpdate);
     }

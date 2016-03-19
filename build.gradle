@@ -18,8 +18,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 1000200
-        versionName "1.0.2"
+        versionCode 1000300
+        versionName "1.0.3"
     }
     buildTypes {
         release {
@@ -55,7 +55,7 @@ ext {
     siteUrl = 'https://github.com/robohorse/gpversionchecker'
     gitUrl = 'https://github.com/robohorse/gpversionchecker.git'
 
-    libraryVersion = '1.0.2'
+    libraryVersion = '1.0.3'
 
     developerId = 'robohorse'
     developerName = 'Vadim'
