@@ -98,7 +98,14 @@ The following code will block showing of the default dialog window, but gives in
                 .create();
 ```
 
+#ProGuard
+Add the following to proguard-project.txt:
 
+```gradle
+-keep public class org.jsoup.** {
+public *;
+}
+```
 
 #About
 Copyright 2016 Vadim Shchenev, and licensed under the MIT license. No attribution is necessary but it's very much appreciated. Star this project if you like it.
