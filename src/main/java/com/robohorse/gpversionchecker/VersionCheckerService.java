@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
+import android.text.Html;
 import android.text.TextUtils;
 
 import com.robohorse.gpversionchecker.debug.ALog;
@@ -15,6 +16,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -26,6 +28,7 @@ public class VersionCheckerService extends IntentService {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0";
     private static final String DIV_VERSION = "div[itemprop=softwareVersion]";
     private static final String DIV_CHANGES = "div[class=recent-change]";
+    private static final String DIV_DESCRIPTION = "div[itemprop=description]";
 
     private static final int CONNECTION_TIMEOUT = 30000;
 
@@ -58,10 +61,12 @@ public class VersionCheckerService extends IntentService {
         Context context = getApplicationContext();
         final String packageName = context.getPackageName();
         final String curVersion = context.getPackageManager().getPackageInfo(packageName, 0).versionName;
+        final String language = Locale.getDefault().getLanguage();
 
+        final String url = context.getString(R.string.gpvch_google_play_url) + packageName + "&hl=" + language;
         ALog.d("request params: package - " + packageName + ", current app version: " + curVersion);
 
-        final Document document = Jsoup.connect(context.getString(R.string.gpvch_google_play_url) + packageName)
+        final Document document = Jsoup.connect(url)
                 .timeout(CONNECTION_TIMEOUT)
                 .userAgent(USER_AGENT)
                 .referrer(REFERRER)
@@ -71,8 +76,11 @@ public class VersionCheckerService extends IntentService {
                 .first()
                 .ownText();
 
-        final String changes = document.select(DIV_CHANGES)
-                .html();
+        final String changes = String.valueOf(Html.fromHtml(document.select(DIV_CHANGES)
+                .html()));
+
+        final String description = String.valueOf(Html.fromHtml(document.select(DIV_DESCRIPTION)
+                .html()));
 
         ALog.d("current version: " + curVersion + "; google play version: " + newVersion);
 
@@ -82,6 +90,6 @@ public class VersionCheckerService extends IntentService {
 
         final boolean needToUpdate = !curVersion.equals(newVersion);
 
-        return new Version(newVersion, changes, needToUpdate);
+        return new Version(newVersion, changes, needToUpdate, url, description);
     }
 }

@@ -10,11 +10,15 @@ public class Version implements Serializable {
     private String newVersionCode;
     private String changes;
     private boolean needToUpdate;
+    private String url;
+    private String description;
 
-    public Version(String newVersionCode, String changes, boolean needToUpdate) {
+    public Version(String newVersionCode, String changes, boolean needToUpdate, String url, String description) {
         this.newVersionCode = newVersionCode;
         this.changes = changes;
         this.needToUpdate = needToUpdate;
+        this.url = url;
+        this.description = description;
     }
 
     public String getNewVersionCode() {
@@ -29,6 +33,14 @@ public class Version implements Serializable {
         return needToUpdate;
     }
 
+    public String getUrl() {
+        return url == null ? "" : url;
+    }
+
+    public String getDescription() {
+        return description == null ? "" : description;
+    }
+
     @Override
     public String toString() {
         final String newLine = System.getProperty("line.separator");
@@ -36,6 +48,8 @@ public class Version implements Serializable {
         return new StringBuilder()
                 .append(newLine)
                 .append("Google play app version: " + getNewVersionCode() + newLine)
+                .append("url: " + getUrl() + newLine)
+                .append("description: " + getDescription() + newLine)
                 .append("with changes: " + getChanges() + newLine)
                 .append("update required: " + isNeedToUpdate()).toString();
     }
