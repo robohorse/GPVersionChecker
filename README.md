@@ -8,7 +8,7 @@ Android Library for checking the current uploaded version on the Google Play
 
 1) Just add this dependency into your build.gradle
 ```gradle
-compile 'com.robohorse.gpversionchecker:gpversionchecker:1.0.2'
+compile 'com.robohorse.gpversionchecker:gpversionchecker:1.0.3'
 ```
 2) Add 
 ```java 
@@ -98,7 +98,14 @@ The following code will block showing of the default dialog window, but gives in
                 .create();
 ```
 
+#ProGuard
+Add the following to proguard-project.txt:
 
+```gradle
+-keep public class org.jsoup.** {
+public *;
+}
+```
 
 #About
 Copyright 2016 Vadim Shchenev, and licensed under the MIT license. No attribution is necessary but it's very much appreciated. Star this project if you like it.
