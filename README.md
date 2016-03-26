@@ -8,7 +8,7 @@ Android Library for checking the current uploaded version on the Google Play
 
 1) Just add this dependency into your build.gradle
 ```gradle
-compile 'com.robohorse.gpversionchecker:gpversionchecker:1.0.3'
+compile 'com.robohorse.gpversionchecker:gpversionchecker:1.0.4'
 ```
 2) Add 
 ```java 
@@ -70,9 +70,7 @@ ic_launcher.png
 or colors
 ```xml
     <color name="gpvch_dialog_text_color">@color/gpvch_black</color>
-    <color name="gpvch_dialog_bg_color">@color/gpvch_white</color>
 
-    <color name="gpvch_white">#ffffff</color>
     <color name="gpvch_black">#000000</color>
 ```
 
