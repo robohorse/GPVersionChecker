@@ -35,7 +35,7 @@ public class GPVersionChecker {
         }
     }
 
-    protected static void onResponseReceived(Version version) {
+    protected static void onResponseReceived(final Version version) {
         if (null != activityWeakReference) {
             Activity activity = activityWeakReference.get();
 
@@ -46,8 +46,12 @@ public class GPVersionChecker {
             SharedPrefsHelper.saveCurrentDate(activity);
 
             if (null != versionInfoListener) {
-                versionInfoListener.onResulted(version);
-
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        versionInfoListener.onResulted(version);
+                    }
+                });
             } else if (version.isNeedToUpdate()) {
                 UIHelper.showInfoView(activity, version);
             }
