@@ -8,7 +8,7 @@ Android Library for checking the current uploaded version on the Google Play
 
 1) Just add this dependency into your build.gradle
 ```gradle
-compile 'com.robohorse.gpversionchecker:gpversionchecker:1.0.4'
+compile 'com.robohorse.gpversionchecker:gpversionchecker:1.0.5'
 ```
 2) Add 
 ```java 
@@ -62,9 +62,11 @@ also, you can override dimensions for default dialog window
 
     <integer name="gpvch_tv_changes_max_lines">4</integer>
 ```
-image
-```
-ic_launcher.png
+image by overriding ```gpvch_app_icon.xml```
+```xml
+   <?xml version="1.0" encoding="utf-8"?>
+   <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/ic_launcher" />
 ```
 
 or colors
