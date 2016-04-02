@@ -72,8 +72,6 @@ image by overriding ```gpvch_app_icon.xml```
 or colors
 ```xml
     <color name="gpvch_dialog_text_color">@color/gpvch_black</color>
-
-    <color name="gpvch_black">#000000</color>
 ```
 
 <b>&#8226; Version checking strategy</b>
