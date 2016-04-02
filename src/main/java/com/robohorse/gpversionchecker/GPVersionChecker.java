@@ -66,21 +66,41 @@ public class GPVersionChecker {
             GPVersionChecker.strategy = CheckingStrategy.ALWAYS;
         }
 
+        /**
+         * Set custom version-response subscriber. This subscriber will disable default dialog window.
+         *
+         * @return Builder
+         */
         public Builder setVersionInfoListener(VersionInfoListener versionInfoListener) {
             GPVersionChecker.versionInfoListener = versionInfoListener;
             return this;
         }
 
-        public Builder setLoggingEbable(boolean useLog) {
+        /**
+         * Set logging
+         *
+         * @return Builder
+         */
+        public Builder setLoggingEnable(boolean useLog) {
             GPVersionChecker.useLog = useLog;
             return this;
         }
 
+        /**
+         * Set strategy of version-checking: ALWAYS, ONE_PER_DAY
+         *
+         * @return Builder
+         */
         public Builder setCheckingStrategy(CheckingStrategy strategy) {
             GPVersionChecker.strategy = strategy;
             return this;
         }
 
+        /**
+         * Create checking request
+         *
+         * @return Builder
+         */
         public Builder create() {
             proceed();
             return this;

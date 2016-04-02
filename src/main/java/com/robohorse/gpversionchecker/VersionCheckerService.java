@@ -60,11 +60,11 @@ public class VersionCheckerService extends IntentService {
 
         Context context = getApplicationContext();
         final String packageName = context.getPackageName();
-        final String curVersion = context.getPackageManager().getPackageInfo(packageName, 0).versionName;
+        final String currentVersion = context.getPackageManager().getPackageInfo(packageName, 0).versionName;
         final String language = Locale.getDefault().getLanguage();
 
         final String url = context.getString(R.string.gpvch_google_play_url) + packageName + "&hl=" + language;
-        ALog.d("request params: package - " + packageName + ", current app version: " + curVersion);
+        ALog.d("request params: package - " + packageName + ", current app version: " + currentVersion);
 
         final Document document = Jsoup.connect(url)
                 .timeout(CONNECTION_TIMEOUT)
@@ -82,14 +82,23 @@ public class VersionCheckerService extends IntentService {
         final String description = String.valueOf(Html.fromHtml(document.select(DIV_DESCRIPTION)
                 .html()));
 
-        ALog.d("current version: " + curVersion + "; google play version: " + newVersion);
+        ALog.d("current version: " + currentVersion + "; google play version: " + newVersion);
 
-        if (TextUtils.isEmpty(newVersion) || TextUtils.isEmpty(curVersion) || newVersion.equals(curVersion)) {
+        if (TextUtils.isEmpty(newVersion) || TextUtils.isEmpty(currentVersion) || newVersion.equals(currentVersion)) {
             return null;
         }
 
-        final boolean needToUpdate = !curVersion.equals(newVersion);
+        final int currentVersionValue = Integer.parseInt(replaceNonDigits(currentVersion));
+        final int newVersionValue = Integer.parseInt(replaceNonDigits(newVersion));
+
+        final boolean needToUpdate = newVersionValue > currentVersionValue;
 
         return new Version(newVersion, changes, needToUpdate, url, description);
+    }
+
+    private String replaceNonDigits(String value) {
+        value = value.replaceAll("[^\\d.]", "");
+        value = value.replace(".", "");
+        return value;
     }
 }
