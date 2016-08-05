@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.1.2'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
     }
@@ -18,8 +18,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 1000400
-        versionName "1.0.4"
+        versionCode 1000500
+        versionName "1.0.5"
     }
     buildTypes {
         release {
@@ -38,8 +38,13 @@ bintray {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
     compile 'org.jsoup:jsoup:1.7.2'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.0.86-beta'
+    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.robolectric:shadows-multidex:3.0'
+    testCompile 'commons-io:commons-io:2.4'
 }
 
 ext {
@@ -55,7 +60,7 @@ ext {
     siteUrl = 'https://github.com/robohorse/gpversionchecker'
     gitUrl = 'https://github.com/robohorse/gpversionchecker.git'
 
-    libraryVersion = '1.0.4'
+    libraryVersion = '1.0.5'
 
     developerId = 'robohorse'
     developerName = 'Vadim'

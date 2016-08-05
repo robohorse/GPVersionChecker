@@ -11,6 +11,7 @@ import android.text.TextUtils;
 
 import com.robohorse.gpversionchecker.debug.ALog;
 import com.robohorse.gpversionchecker.domain.Version;
+import com.robohorse.gpversionchecker.helper.DataParser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -26,9 +27,6 @@ import java.util.concurrent.Executors;
 public class VersionCheckerService extends IntentService {
     private static final String REFERRER = "http://www.google.com";
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0";
-    private static final String DIV_VERSION = "div[itemprop=softwareVersion]";
-    private static final String DIV_CHANGES = "div[class=recent-change]";
-    private static final String DIV_DESCRIPTION = "div[itemprop=description]";
 
     private static final int CONNECTION_TIMEOUT = 30000;
 
@@ -72,33 +70,6 @@ public class VersionCheckerService extends IntentService {
                 .referrer(REFERRER)
                 .get();
 
-        final String newVersion = document.select(DIV_VERSION)
-                .first()
-                .ownText();
-
-        final String changes = String.valueOf(Html.fromHtml(document.select(DIV_CHANGES)
-                .html()));
-
-        final String description = String.valueOf(Html.fromHtml(document.select(DIV_DESCRIPTION)
-                .html()));
-
-        ALog.d("current version: " + currentVersion + "; google play version: " + newVersion);
-
-        if (TextUtils.isEmpty(newVersion) || TextUtils.isEmpty(currentVersion) || newVersion.equals(currentVersion)) {
-            return null;
-        }
-
-        final int currentVersionValue = Integer.parseInt(replaceNonDigits(currentVersion));
-        final int newVersionValue = Integer.parseInt(replaceNonDigits(newVersion));
-
-        final boolean needToUpdate = newVersionValue > currentVersionValue;
-
-        return new Version(newVersion, changes, needToUpdate, url, description);
-    }
-
-    private String replaceNonDigits(String value) {
-        value = value.replaceAll("[^\\d.]", "");
-        value = value.replace(".", "");
-        return value;
+        return new DataParser().parse(document, currentVersion, url);
     }
 }
