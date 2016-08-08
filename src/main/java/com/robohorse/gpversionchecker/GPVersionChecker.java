@@ -64,8 +64,8 @@ public class GPVersionChecker {
 
     private static void resetState(Activity activity) {
         activityWeakReference = new WeakReference<>(activity);
-        GPVersionChecker.versionInfoListener = null;
-        GPVersionChecker.strategy = CheckingStrategy.ALWAYS;
+        versionInfoListener = null;
+        strategy = CheckingStrategy.ALWAYS;
     }
 
     public static class Builder {
