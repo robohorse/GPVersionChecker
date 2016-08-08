@@ -6,20 +6,13 @@ import java.io.Serializable;
  * Created by robohorse on 06.03.16.
  */
 public class Version implements Serializable {
+    private static final String SEPARATOR = System.getProperty("line.separator");
     private static final long serialVersionUID = 2635L;
     private String newVersionCode;
     private String changes;
     private boolean needToUpdate;
     private String url;
     private String description;
-
-    public Version(String newVersionCode, String changes, boolean needToUpdate, String url, String description) {
-        this.newVersionCode = newVersionCode;
-        this.changes = changes;
-        this.needToUpdate = needToUpdate;
-        this.url = url;
-        this.description = description;
-    }
 
     public String getNewVersionCode() {
         return newVersionCode == null ? "" : newVersionCode;
@@ -41,16 +34,51 @@ public class Version implements Serializable {
         return description == null ? "" : description;
     }
 
+    public static class Builder {
+        private Version instance;
+
+        public Builder() {
+            instance = new Version();
+        }
+
+        public Builder setNewVersionCode(String newVersionCode) {
+            instance.newVersionCode = newVersionCode;
+            return this;
+        }
+
+        public Builder setChanges(String changes) {
+            instance.changes = changes;
+            return this;
+        }
+
+        public Builder setNeedToUpdate(boolean needToUpdate) {
+            instance.needToUpdate = needToUpdate;
+            return this;
+        }
+
+        public Builder setUrl(String url) {
+            instance.url = url;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            instance.description = description;
+            return this;
+        }
+
+        public Version build() {
+            return instance;
+        }
+    }
+
     @Override
     public String toString() {
-        final String newLine = System.getProperty("line.separator");
-
         return new StringBuilder()
-                .append(newLine)
-                .append("Google play app version: " + getNewVersionCode() + newLine)
-                .append("url: " + getUrl() + newLine)
-                .append("description: " + getDescription() + newLine)
-                .append("with changes: " + getChanges() + newLine)
+                .append(SEPARATOR)
+                .append("Google play app version: " + getNewVersionCode() + SEPARATOR)
+                .append("url: " + getUrl() + SEPARATOR)
+                .append("description: " + getDescription() + SEPARATOR)
+                .append("with changes: " + getChanges() + SEPARATOR)
                 .append("update required: " + isNeedToUpdate()).toString();
     }
 }

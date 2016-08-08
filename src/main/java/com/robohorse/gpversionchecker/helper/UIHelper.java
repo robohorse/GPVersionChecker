@@ -19,7 +19,7 @@ import com.robohorse.gpversionchecker.domain.Version;
  */
 public class UIHelper {
 
-    public static void showInfoView(final Activity activity, final Version version) {
+    public void showInfoView(final Activity activity, final Version version) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -28,7 +28,7 @@ public class UIHelper {
         });
     }
 
-    private static void showDialogOnUIThread(final Context context, Version version) {
+    private void showDialogOnUIThread(final Context context, Version version) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.gpvch_layout_dialog, null);
         bindVersionData(view, version, context);
@@ -52,7 +52,7 @@ public class UIHelper {
         dialog.show();
     }
 
-    private static void bindVersionData(View view, Version version, Context context) {
+    private void bindVersionData(View view, Version version, Context context) {
         TextView tvVersion = (TextView) view.findViewById(R.id.tvVersionCode);
         tvVersion.setText(context.getString(R.string.app_name) + ": " + version.getNewVersionCode());
 
@@ -66,7 +66,7 @@ public class UIHelper {
         }
     }
 
-    private static void openGooglePlay(Context context) {
+    private void openGooglePlay(Context context) {
         final String packageName = context.getApplicationContext().getPackageName();
         final String url = context.getString(R.string.gpvch_google_play_url) + packageName;
 

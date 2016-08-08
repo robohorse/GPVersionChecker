@@ -16,14 +16,14 @@ import java.util.Locale;
 public class SharedPrefsHelper {
     private static final String GPVCH_TIME = "gpvch_time";
 
-    public static void saveCurrentDate(Context context) {
+    public void saveCurrentDate(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         preferences.edit()
                 .putLong(GPVCH_TIME, formatTodayDate().getTime())
                 .apply();
     }
 
-    public static boolean needToCheckVersion(Context context) {
+    public boolean needToCheckVersion(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         final long storedTime = preferences.getLong(GPVCH_TIME, 0L);
         if (storedTime == 0L) {
@@ -36,7 +36,7 @@ public class SharedPrefsHelper {
         return today.after(storedDate);
     }
 
-    private static Date formatTodayDate() {
+    private Date formatTodayDate() {
         Date today = new Date(System.currentTimeMillis());
         try {
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ROOT);

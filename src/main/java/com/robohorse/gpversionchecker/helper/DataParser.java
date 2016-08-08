@@ -39,7 +39,13 @@ public class DataParser {
 
         final boolean needToUpdate = newVersionValue > currentVersionValue;
 
-        return new Version(newVersion, changes, needToUpdate, url, description);
+        return new Version.Builder()
+                .setNewVersionCode(newVersion)
+                .setChanges(changes)
+                .setNeedToUpdate(needToUpdate)
+                .setUrl(url)
+                .setDescription(description)
+                .build();
     }
 
     private String replaceNonDigits(String value) {

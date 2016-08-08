@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.robohorse.gpversionchecker.base.CheckingStrategy;
+import com.robohorse.gpversionchecker.base.VersionInfoListener;
 import com.robohorse.gpversionchecker.debug.ALog;
 import com.robohorse.gpversionchecker.domain.Version;
 import com.robohorse.gpversionchecker.helper.SharedPrefsHelper;
 import com.robohorse.gpversionchecker.helper.UIHelper;
-import com.robohorse.gpversionchecker.base.VersionInfoListener;
 
 import java.lang.ref.WeakReference;
 
@@ -18,8 +18,10 @@ import java.lang.ref.WeakReference;
 public class GPVersionChecker {
     private static WeakReference<Activity> activityWeakReference;
     private static VersionInfoListener versionInfoListener;
-    private static CheckingStrategy strategy = CheckingStrategy.ALWAYS;
+    private static CheckingStrategy strategy;
     public static boolean useLog;
+    private static UIHelper uiHelper;
+    private static SharedPrefsHelper sharedPrefsHelper;
 
     private static void proceed() {
         Activity activity = activityWeakReference.get();
@@ -28,42 +30,56 @@ public class GPVersionChecker {
         }
 
         if (strategy == CheckingStrategy.ALWAYS ||
-                (strategy == CheckingStrategy.ONE_PER_DAY && SharedPrefsHelper.needToCheckVersion(activity))) {
-            activity.startService(new Intent(activity, VersionCheckerService.class));
+                (strategy == CheckingStrategy.ONE_PER_DAY && sharedPrefsHelper.needToCheckVersion(activity))) {
+            startService(activity);
         } else {
             ALog.d("Skipped");
         }
+    }
+
+    private static void startService(Activity activity) {
+        activity.startService(new Intent(activity, VersionCheckerService.class));
     }
 
     protected static void onResponseReceived(final Version version) {
         if (null != activityWeakReference) {
             Activity activity = activityWeakReference.get();
 
-            if (null == activity || activity.isFinishing()) {
-                return;
-            }
+            if (null != activity && !activity.isFinishing()) {
+                sharedPrefsHelper.saveCurrentDate(activity);
 
-            SharedPrefsHelper.saveCurrentDate(activity);
-
-            if (null != versionInfoListener) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        versionInfoListener.onResulted(version);
-                    }
-                });
-            } else if (version.isNeedToUpdate()) {
-                UIHelper.showInfoView(activity, version);
+                if (null != versionInfoListener) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            versionInfoListener.onResulted(version);
+                        }
+                    });
+                } else if (version.isNeedToUpdate()) {
+                    uiHelper.showInfoView(activity, version);
+                }
             }
         }
+    }
+
+    private static void resetState(Activity activity) {
+        activityWeakReference = new WeakReference<>(activity);
+        GPVersionChecker.versionInfoListener = null;
+        GPVersionChecker.strategy = CheckingStrategy.ALWAYS;
     }
 
     public static class Builder {
 
         public Builder(Activity activity) {
-            activityWeakReference = new WeakReference<>(activity);
-            GPVersionChecker.versionInfoListener = null;
-            GPVersionChecker.strategy = CheckingStrategy.ALWAYS;
+            resetState(activity);
+            uiHelper = new UIHelper();
+            sharedPrefsHelper = new SharedPrefsHelper();
+        }
+
+        protected Builder(Activity activity, UIHelper uiHelper, SharedPrefsHelper sharedPrefsHelper) {
+            resetState(activity);
+            GPVersionChecker.uiHelper = uiHelper;
+            GPVersionChecker.sharedPrefsHelper = sharedPrefsHelper;
         }
 
         /**

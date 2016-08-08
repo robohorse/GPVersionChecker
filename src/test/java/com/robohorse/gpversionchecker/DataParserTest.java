@@ -29,11 +29,6 @@ public class DataParserTest {
     private AssetsReader assetsReader = new AssetsReader();
     private DataParser dataParser = new DataParser();
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
-
     @Test
     public void testDataParsing_isCorrectOnLowerUserVersion() throws Exception {
         final String currentVersion = "1";
