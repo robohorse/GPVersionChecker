@@ -10,6 +10,8 @@ buildscript {
 }
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.robohorse'
 
 android {
     compileSdkVersion 24
