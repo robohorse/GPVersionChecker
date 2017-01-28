@@ -24,7 +24,7 @@ allprojects {
 ```
 and:
 ```gradle
- compile 'com.github.robohorse:gpversionchecker:1.0.8'
+ compile 'com.github.robohorse:gpversionchecker:1.0.9'
 ```
 
 2) Add 
