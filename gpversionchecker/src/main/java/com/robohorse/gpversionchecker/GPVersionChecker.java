@@ -6,9 +6,9 @@ import android.content.Intent;
 import com.robohorse.gpversionchecker.base.CheckingStrategy;
 import com.robohorse.gpversionchecker.base.VersionInfoListener;
 import com.robohorse.gpversionchecker.debug.ALog;
+import com.robohorse.gpversionchecker.delegate.UIDelegate;
 import com.robohorse.gpversionchecker.domain.Version;
-import com.robohorse.gpversionchecker.helper.SharedPrefsHelper;
-import com.robohorse.gpversionchecker.helper.UIHelper;
+import com.robohorse.gpversionchecker.provider.SharedDataProvider;
 
 import java.lang.ref.WeakReference;
 
@@ -19,19 +19,21 @@ public class GPVersionChecker {
     private static WeakReference<Activity> activityWeakReference;
     private static VersionInfoListener versionInfoListener;
     private static CheckingStrategy strategy;
+    private static UIDelegate uiDelegate;
+    private static SharedDataProvider sharedDataProvider;
     public static boolean useLog;
-    private static UIHelper uiHelper;
-    private static SharedPrefsHelper sharedPrefsHelper;
 
     private static void proceed() {
-        Activity activity = activityWeakReference.get();
+        final Activity activity = activityWeakReference.get();
         if (null == activity) {
-            throw new RuntimeException("Activity cannot be null for GPVersionChecker context");
+            throw new IllegalStateException("Activity cannot be null for GPVersionChecker context");
         }
 
+        final boolean checkRequired = sharedDataProvider.needToCheckVersion(activity);
         if (strategy == CheckingStrategy.ALWAYS ||
-                (strategy == CheckingStrategy.ONE_PER_DAY && sharedPrefsHelper.needToCheckVersion(activity))) {
+                (strategy == CheckingStrategy.ONE_PER_DAY && checkRequired)) {
             startService(activity);
+
         } else {
             ALog.d("Skipped");
         }
@@ -46,7 +48,7 @@ public class GPVersionChecker {
             Activity activity = activityWeakReference.get();
 
             if (null != activity && !activity.isFinishing()) {
-                sharedPrefsHelper.saveCurrentDate(activity);
+                sharedDataProvider.saveCurrentDate(activity);
 
                 if (null != versionInfoListener) {
                     activity.runOnUiThread(new Runnable() {
@@ -56,7 +58,7 @@ public class GPVersionChecker {
                         }
                     });
                 } else if (version.isNeedToUpdate()) {
-                    uiHelper.showInfoView(activity, version);
+                    uiDelegate.showInfoView(activity, version);
                 }
             }
         }
@@ -72,14 +74,14 @@ public class GPVersionChecker {
 
         public Builder(Activity activity) {
             resetState(activity);
-            uiHelper = new UIHelper();
-            sharedPrefsHelper = new SharedPrefsHelper();
+            uiDelegate = new UIDelegate();
+            sharedDataProvider = new SharedDataProvider();
         }
 
-        protected Builder(Activity activity, UIHelper uiHelper, SharedPrefsHelper sharedPrefsHelper) {
+        protected Builder(Activity activity, UIDelegate uiDelegate, SharedDataProvider sharedDataProvider) {
             resetState(activity);
-            GPVersionChecker.uiHelper = uiHelper;
-            GPVersionChecker.sharedPrefsHelper = sharedPrefsHelper;
+            GPVersionChecker.uiDelegate = uiDelegate;
+            GPVersionChecker.sharedDataProvider = sharedDataProvider;
         }
 
         /**

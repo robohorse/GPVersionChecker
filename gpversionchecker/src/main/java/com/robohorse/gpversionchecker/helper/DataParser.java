@@ -29,8 +29,7 @@ public class DataParser {
 
         ALog.d("current version: " + currentVersion + "; google play version: " + newVersion);
 
-        if (TextUtils.isEmpty(newVersion)
-                || TextUtils.isEmpty(currentVersion)) {
+        if (TextUtils.isEmpty(newVersion) || TextUtils.isEmpty(currentVersion)) {
             return null;
         }
 

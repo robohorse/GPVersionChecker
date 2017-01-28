@@ -1,13 +1,9 @@
 package com.robohorse.gpversionchecker;
 
 import android.app.IntentService;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.IBinder;
-import android.text.Html;
-import android.text.TextUtils;
 
 import com.robohorse.gpversionchecker.debug.ALog;
 import com.robohorse.gpversionchecker.domain.Version;
@@ -18,8 +14,6 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Created by robohorse on 06.03.16.
@@ -36,7 +30,7 @@ public class VersionCheckerService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Version version = obtainDataFromGooglePlay();
+        final Version version = obtainDataFromGooglePlay();
         if (null != version) {
             ALog.d("Response received: " + version.toString());
             GPVersionChecker.onResponseReceived(version);
@@ -56,9 +50,12 @@ public class VersionCheckerService extends IntentService {
     private Version obtainDataFromGooglePlayWithException()
             throws IOException, NumberFormatException, PackageManager.NameNotFoundException {
 
-        Context context = getApplicationContext();
+        final Context context = getApplicationContext();
         final String packageName = context.getPackageName();
-        final String currentVersion = context.getPackageManager().getPackageInfo(packageName, 0).versionName;
+        final String currentVersion = context
+                .getPackageManager()
+                .getPackageInfo(packageName, 0)
+                .versionName;
         final String language = Locale.getDefault().getLanguage();
 
         final String url = context.getString(R.string.gpvch_google_play_url) + packageName + "&hl=" + language;
