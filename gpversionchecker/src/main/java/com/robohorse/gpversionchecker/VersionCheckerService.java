@@ -1,13 +1,9 @@
 package com.robohorse.gpversionchecker;
 
 import android.app.IntentService;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.IBinder;
-import android.text.Html;
-import android.text.TextUtils;
 
 import com.robohorse.gpversionchecker.debug.ALog;
 import com.robohorse.gpversionchecker.domain.Version;
@@ -18,8 +14,6 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Created by robohorse on 06.03.16.

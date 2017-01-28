@@ -6,9 +6,9 @@ import android.content.Intent;
 import com.robohorse.gpversionchecker.base.CheckingStrategy;
 import com.robohorse.gpversionchecker.base.VersionInfoListener;
 import com.robohorse.gpversionchecker.debug.ALog;
+import com.robohorse.gpversionchecker.delegate.UIDelegate;
 import com.robohorse.gpversionchecker.domain.Version;
 import com.robohorse.gpversionchecker.provider.SharedDataProvider;
-import com.robohorse.gpversionchecker.delegate.UIDelegate;
 
 import java.lang.ref.WeakReference;
 
