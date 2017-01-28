@@ -26,8 +26,8 @@ public class AssetsReader {
     }
 
     private String readFile(String name) throws IOException, NullPointerException {
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(name);
-        StringWriter writer = new StringWriter();
+        final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(name);
+        final StringWriter writer = new StringWriter();
         IOUtils.copy(inputStream, writer, "UTF-8");
         IOUtils.closeQuietly(inputStream);
         return writer.toString();

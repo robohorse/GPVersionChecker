@@ -6,11 +6,9 @@ import com.robohorse.gpversionchecker.utils.AssetsReader;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertFalse;
@@ -22,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by vadim on 17.07.16.
  */
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
 public class DataParserTest {
     private static final String URL = "https://play.google.com/store/apps/details?id=com.robohorse.gpversionchecker";
@@ -32,8 +30,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectOnLowerUserVersion() throws Exception {
         final String currentVersion = "1";
-        String htmlBody = assetsReader.read("sample_app.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNotNull("VersionVO is empty", version);
@@ -43,8 +41,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectOnHigherUserVersion() throws Exception {
         final String currentVersion = "1.9.49";
-        String htmlBody = assetsReader.read("sample_app.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNotNull("VersionVO is empty", version);
@@ -54,8 +52,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectOnSameUserVersion() throws Exception {
         final String currentVersion = "1.9.48";
-        String htmlBody = assetsReader.read("sample_app.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNotNull("VersionVO is empty", version);
@@ -65,8 +63,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectChangesReading() throws Exception {
         final String currentVersion = "1.9.48";
-        String htmlBody = assetsReader.read("sample_app.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNotNull("VersionVO is empty", version);
@@ -77,8 +75,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectDescriptionReading() throws Exception {
         final String currentVersion = "1.9.48";
-        String htmlBody = assetsReader.read("sample_app.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNotNull("VersionVO is empty", version);
@@ -89,8 +87,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectOnEmptyUserAppVersion() throws Exception {
         final String currentVersion = null;
-        String htmlBody = assetsReader.read("sample_app.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNull("VersionVO is not empty", version);
@@ -99,8 +97,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectOnEmptyCurrentAppVersion() throws Exception {
         final String currentVersion = "1.9.48";
-        String htmlBody = assetsReader.read("sample_app_empty_version.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app_empty_version.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNull("VersionVO is not empty", version);
@@ -109,8 +107,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectOnLowerUserVersionWithCharacters() throws Exception {
         final String currentVersion = "1";
-        String htmlBody = assetsReader.read("sample_app_symbol_version.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app_symbol_version.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNotNull("VersionVO is empty", version);
@@ -120,8 +118,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectOnHigherUserVersionWithCharacters() throws Exception {
         final String currentVersion = "1.9.49";
-        String htmlBody = assetsReader.read("sample_app_symbol_version.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app_symbol_version.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNotNull("VersionVO is empty", version);
@@ -131,8 +129,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectOnSameUserVersionWithCharacters() throws Exception {
         final String currentVersion = "1.9.48";
-        String htmlBody = assetsReader.read("sample_app_symbol_version.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app_symbol_version.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNotNull("VersionVO is empty", version);
@@ -142,8 +140,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectChangesReadingWithCharacters() throws Exception {
         final String currentVersion = "1.9.48";
-        String htmlBody = assetsReader.read("sample_app_symbol_version.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app_symbol_version.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNotNull("VersionVO is empty", version);
@@ -154,8 +152,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectDescriptionReadingWithCharacters() throws Exception {
         final String currentVersion = "1.9.48";
-        String htmlBody = assetsReader.read("sample_app_symbol_version.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app_symbol_version.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNotNull("VersionVO is empty", version);
@@ -166,8 +164,8 @@ public class DataParserTest {
     @Test
     public void testDataParsing_isCorrectOnEmptyUserAppVersionWithCharacters() throws Exception {
         final String currentVersion = null;
-        String htmlBody = assetsReader.read("sample_app_symbol_version.html");
-        Document document = Jsoup.parse(htmlBody);
+        final String htmlBody = assetsReader.read("sample_app_symbol_version.html");
+        final Document document = Jsoup.parse(htmlBody);
         final Version version = dataParser.parse(document, currentVersion, URL);
 
         assertNull("VersionVO is not empty", version);
