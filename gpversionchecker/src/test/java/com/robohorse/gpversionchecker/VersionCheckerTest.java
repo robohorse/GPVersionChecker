@@ -3,8 +3,8 @@ package com.robohorse.gpversionchecker;
 import android.app.Activity;
 
 import com.robohorse.gpversionchecker.domain.Version;
-import com.robohorse.gpversionchecker.helper.SharedPrefsHelper;
-import com.robohorse.gpversionchecker.helper.UIHelper;
+import com.robohorse.gpversionchecker.provider.SharedDataProvider;
+import com.robohorse.gpversionchecker.delegate.UIDelegate;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,10 +27,10 @@ public class VersionCheckerTest {
     private Activity activity;
 
     @Mock
-    private SharedPrefsHelper sharedPrefsHelper;
+    private SharedDataProvider sharedDataProvider;
 
     @Mock
-    private UIHelper uiHelper;
+    private UIDelegate uiDelegate;
 
     @Before
     public void setUp() {
@@ -56,10 +56,10 @@ public class VersionCheckerTest {
                 .build();
 
         new GPVersionChecker
-                .Builder(activity, uiHelper, sharedPrefsHelper)
+                .Builder(activity, uiDelegate, sharedDataProvider)
                 .create();
         GPVersionChecker.onResponseReceived(version);
-        Mockito.verify(uiHelper).showInfoView(activity, version);
+        Mockito.verify(uiDelegate).showInfoView(activity, version);
     }
 
     @Test
@@ -69,9 +69,9 @@ public class VersionCheckerTest {
                 .build();
 
         new GPVersionChecker
-                .Builder(activity, uiHelper, sharedPrefsHelper)
+                .Builder(activity, uiDelegate, sharedDataProvider)
                 .create();
         GPVersionChecker.onResponseReceived(version);
-        Mockito.verifyZeroInteractions(uiHelper);
+        Mockito.verifyZeroInteractions(uiDelegate);
     }
 }

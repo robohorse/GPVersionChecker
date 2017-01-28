@@ -10,7 +10,5 @@
         <service
             android:name=".VersionCheckerService"
             android:exported="false" />
-
     </application>
-
 </manifest>

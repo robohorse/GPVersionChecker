@@ -36,7 +36,7 @@ public class VersionCheckerService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Version version = obtainDataFromGooglePlay();
+        final Version version = obtainDataFromGooglePlay();
         if (null != version) {
             ALog.d("Response received: " + version.toString());
             GPVersionChecker.onResponseReceived(version);
@@ -56,9 +56,12 @@ public class VersionCheckerService extends IntentService {
     private Version obtainDataFromGooglePlayWithException()
             throws IOException, NumberFormatException, PackageManager.NameNotFoundException {
 
-        Context context = getApplicationContext();
+        final Context context = getApplicationContext();
         final String packageName = context.getPackageName();
-        final String currentVersion = context.getPackageManager().getPackageInfo(packageName, 0).versionName;
+        final String currentVersion = context
+                .getPackageManager()
+                .getPackageInfo(packageName, 0)
+                .versionName;
         final String language = Locale.getDefault().getLanguage();
 
         final String url = context.getString(R.string.gpvch_google_play_url) + packageName + "&hl=" + language;

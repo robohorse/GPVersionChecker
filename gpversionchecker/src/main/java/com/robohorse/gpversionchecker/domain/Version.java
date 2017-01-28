@@ -6,8 +6,9 @@ import java.io.Serializable;
  * Created by robohorse on 06.03.16.
  */
 public class Version implements Serializable {
-    private static final String SEPARATOR = System.getProperty("line.separator");
     private static final long serialVersionUID = 2635L;
+    private static final String SEPARATOR = System.getProperty("line.separator");
+
     private String newVersionCode;
     private String changes;
     private boolean needToUpdate;

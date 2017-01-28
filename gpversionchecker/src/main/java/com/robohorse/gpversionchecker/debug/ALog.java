@@ -9,7 +9,6 @@ import com.robohorse.gpversionchecker.GPVersionChecker;
  * Created by vadim on 14.03.16.
  */
 public class ALog {
-
     private static final String TAG = "GPVersionChecker";
 
     public static void d(String message) {

@@ -1,4 +1,4 @@
-package com.robohorse.gpversionchecker.helper;
+package com.robohorse.gpversionchecker.provider;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,31 +13,32 @@ import java.util.Locale;
 /**
  * Created by robohorse on 06.03.16.
  */
-public class SharedPrefsHelper {
+public class SharedDataProvider {
     private static final String GPVCH_TIME = "gpvch_time";
 
     public void saveCurrentDate(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences.edit()
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences
+                .edit()
                 .putLong(GPVCH_TIME, formatTodayDate().getTime())
                 .apply();
     }
 
     public boolean needToCheckVersion(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         final long storedTime = preferences.getLong(GPVCH_TIME, 0L);
         if (storedTime == 0L) {
             return true;
         }
 
-        Date storedDate = new Date(storedTime);
-        Date today = formatTodayDate();
+        final Date storedDate = new Date(storedTime);
+        final Date today = formatTodayDate();
 
         return today.after(storedDate);
     }
 
     private Date formatTodayDate() {
-        Date today = new Date(System.currentTimeMillis());
+        final Date today = new Date(System.currentTimeMillis());
         try {
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ROOT);
             return formatter.parse(formatter.format(today));
