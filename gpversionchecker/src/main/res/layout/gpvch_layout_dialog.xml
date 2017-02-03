@@ -43,16 +43,20 @@
                 android:textColor="@color/gpvch_dialog_text_color"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvChanges"
-                android:layout_width="wrap_content"
+            <ScrollView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/gpvch_tv_changes_margin_bottom"
-                android:layout_marginLeft="@dimen/gpvch_tv_changes_margin_left"
-                android:layout_marginRight="@dimen/gpvch_tv_changes_margin_right"
-                android:ellipsize="end"
-                android:maxLines="@integer/gpvch_tv_changes_max_lines"
-                android:textColor="@color/gpvch_dialog_text_color" />
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/tvChanges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/gpvch_tv_changes_margin_bottom"
+                    android:layout_marginLeft="@dimen/gpvch_tv_changes_margin_left"
+                    android:layout_marginRight="@dimen/gpvch_tv_changes_margin_right"
+                    android:textColor="@color/gpvch_dialog_text_color" />
+            </ScrollView>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
