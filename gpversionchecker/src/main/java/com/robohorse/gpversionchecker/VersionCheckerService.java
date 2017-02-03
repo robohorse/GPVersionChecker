@@ -41,8 +41,8 @@ public class VersionCheckerService extends IntentService {
     private Version obtainDataFromGooglePlay() {
         try {
             return obtainDataFromGooglePlayWithException();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
         }
         return null;
     }
@@ -66,7 +66,6 @@ public class VersionCheckerService extends IntentService {
                 .userAgent(USER_AGENT)
                 .referrer(REFERRER)
                 .get();
-
         return new DataParser().parse(document, currentVersion, url);
     }
 }
