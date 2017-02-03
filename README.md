@@ -72,12 +72,6 @@ also, you can override dimensions for default dialog window
     <dimen name="gpvch_tv_version_code_margin_top">10dp</dimen>
 
     <dimen name="gpvch_tv_header_whats_new">5dp</dimen>
-
-    <dimen name="gpvch_tv_changes_margin_left">5dp</dimen>
-    <dimen name="gpvch_tv_changes_margin_right">5dp</dimen>
-    <dimen name="gpvch_tv_changes_margin_bottom">10dp</dimen>
-
-    <integer name="gpvch_tv_changes_max_lines">4</integer>
 ```
 image by overriding ```gpvch_app_icon.xml```
 ```xml
