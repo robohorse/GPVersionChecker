@@ -4,7 +4,7 @@
 Android Library for checking the current uploaded version on the Google Play
 </p>
 
-#Quick start
+# Quick start
 
 1) Just add this dependency into your build.gradle
 ```gradle
@@ -50,7 +50,7 @@ Now you can see this awesome dialog window:
 
 This library does not produce memory leaks - all context usages are leak-safe.
 
-#Customization
+# Customization
 
 <b>&#8226; Dialog window customization</b>
 
@@ -80,11 +80,6 @@ image by overriding ```gpvch_app_icon.xml```
     android:src="@drawable/ic_launcher" />
 ```
 
-or colors
-```xml
-    <color name="gpvch_dialog_text_color">@color/gpvch_black</color>
-```
-
 <b>&#8226; Version checking strategy</b>
 
 Add this to builder, and dialog will be shown once in day
@@ -107,7 +102,7 @@ The following code will block showing of the default dialog window, but gives in
                 .create();
 ```
 
-#ProGuard
+# ProGuard
 Add the following to proguard-project.txt:
 
 ```gradle
@@ -116,5 +111,5 @@ public *;
 }
 ```
 
-#About
+# About
 Copyright 2016 Vadim Shchenev, and licensed under the MIT license. No attribution is necessary but it's very much appreciated. Star this project if you like it.
