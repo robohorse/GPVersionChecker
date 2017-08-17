@@ -7,4 +7,5 @@ import com.robohorse.gpversionchecker.domain.Version;
  */
 public interface VersionInfoListener {
     void onResulted(final Version version);
+    void onErrorHandled(Throwable throwable);
 }

@@ -56,7 +56,7 @@ public class VersionCheckerTest {
         new GPVersionChecker
                 .Builder(activity, uiDelegate, sharedDataProvider)
                 .create();
-        GPVersionChecker.onResponseReceived(version);
+        GPVersionChecker.onResponseReceived(version, null);
         Mockito.verify(uiDelegate).showInfoView(activity, version);
     }
 
@@ -69,7 +69,7 @@ public class VersionCheckerTest {
         new GPVersionChecker
                 .Builder(activity, uiDelegate, sharedDataProvider)
                 .create();
-        GPVersionChecker.onResponseReceived(version);
+        GPVersionChecker.onResponseReceived(version, null);
         Mockito.verifyZeroInteractions(uiDelegate);
     }
 }
