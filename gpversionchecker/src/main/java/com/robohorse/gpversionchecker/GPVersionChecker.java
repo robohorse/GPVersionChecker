@@ -43,7 +43,7 @@ public class GPVersionChecker {
         activity.startService(new Intent(activity, VersionCheckerService.class));
     }
 
-    protected static void onResponseReceived(final Version version) {
+    protected static void onResponseReceived(final Version version, final Throwable throwable) {
         if (null != activityWeakReference) {
             Activity activity = activityWeakReference.get();
 
@@ -54,7 +54,11 @@ public class GPVersionChecker {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            versionInfoListener.onResulted(version);
+                            if (null != version && null == throwable) {
+                                versionInfoListener.onResulted(version);
+                            } else if (null != throwable) {
+                                versionInfoListener.onErrorHandled(throwable);
+                            }
                         }
                     });
                 } else if (version.isNeedToUpdate()) {

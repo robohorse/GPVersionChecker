@@ -33,7 +33,7 @@ public class VersionCheckerService extends IntentService {
         final Version version = obtainDataFromGooglePlay();
         if (null != version) {
             ALog.d("Response received: " + version.toString());
-            GPVersionChecker.onResponseReceived(version);
+            GPVersionChecker.onResponseReceived(version, null);
         }
         stopSelf();
     }
@@ -43,6 +43,7 @@ public class VersionCheckerService extends IntentService {
             return obtainDataFromGooglePlayWithException();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
+            GPVersionChecker.onResponseReceived(null, throwable);
         }
         return null;
     }
