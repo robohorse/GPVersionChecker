@@ -61,7 +61,7 @@ public class GPVersionChecker {
                             }
                         }
                     });
-                } else if (version.isNeedToUpdate()) {
+                } else if (null != version && version.isNeedToUpdate()) {
                     uiDelegate.showInfoView(activity, version);
                 }
             }
