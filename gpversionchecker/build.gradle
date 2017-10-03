@@ -14,14 +14,14 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.robohorse'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 25
-        versionCode 1020000
-        versionName "1.2.0"
+        targetSdkVersion 26
+        versionCode 1030000
+        versionName "1.3.0"
     }
     buildTypes {
         release {
@@ -62,7 +62,7 @@ ext {
     siteUrl = 'https://github.com/robohorse/gpversionchecker'
     gitUrl = 'https://github.com/robohorse/gpversionchecker.git'
 
-    libraryVersion = '1.2.0'
+    libraryVersion = '1.3.0'
 
     developerId = 'robohorse'
     developerName = 'Vadim'
