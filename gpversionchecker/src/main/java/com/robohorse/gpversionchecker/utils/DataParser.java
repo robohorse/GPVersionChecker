@@ -1,4 +1,4 @@
-package com.robohorse.gpversionchecker.helper;
+package com.robohorse.gpversionchecker.utils;
 
 import android.text.Html;
 import android.text.TextUtils;

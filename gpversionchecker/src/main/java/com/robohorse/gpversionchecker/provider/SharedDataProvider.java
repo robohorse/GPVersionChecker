@@ -1,51 +1,44 @@
 package com.robohorse.gpversionchecker.provider;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import com.robohorse.gpversionchecker.domain.Version;
+import com.robohorse.gpversionchecker.utils.DateFormatUtils;
 
 /**
  * Created by robohorse on 06.03.16.
  */
 public class SharedDataProvider {
     private static final String GPVCH_TIME = "gpvch_time";
+    private static final String GPVCH_VERSION = "gpvch_version";
 
-    public void saveCurrentDate(Context context) {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences
+    private final SharedPreferences sharedPreferences;
+    private final DateFormatUtils formatUtils;
+
+    public SharedDataProvider(SharedPreferences sharedPreferences, DateFormatUtils formatUtils) {
+        this.sharedPreferences = sharedPreferences;
+        this.formatUtils = formatUtils;
+    }
+
+    public void saveCurrentDate() {
+        sharedPreferences
                 .edit()
-                .putLong(GPVCH_TIME, formatTodayDate().getTime())
+                .putLong(GPVCH_TIME, formatUtils.formatTodayDate().getTime())
                 .apply();
     }
 
-    public boolean needToCheckVersion(Context context) {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        final long storedTime = preferences.getLong(GPVCH_TIME, 0L);
-        if (storedTime == 0L) {
-            return true;
-        }
-
-        final Date storedDate = new Date(storedTime);
-        final Date today = formatTodayDate();
-
-        return today.after(storedDate);
+    public long provideLastCheckTime() {
+        return sharedPreferences.getLong(GPVCH_TIME, 0L);
     }
 
-    private Date formatTodayDate() {
-        final Date today = new Date(System.currentTimeMillis());
-        try {
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ROOT);
-            return formatter.parse(formatter.format(today));
+    public void saveCurrentVersion(Version version) {
+        sharedPreferences
+                .edit()
+                .putString(GPVCH_VERSION, version.getNewVersionCode())
+                .apply();
+    }
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return today;
+    public String provideLastVersionCode() {
+        return sharedPreferences.getString(GPVCH_VERSION, null);
     }
 }

@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 
 import com.robohorse.gpversionchecker.debug.ALog;
 import com.robohorse.gpversionchecker.domain.Version;
-import com.robohorse.gpversionchecker.helper.DataParser;
+import com.robohorse.gpversionchecker.utils.DataParser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
