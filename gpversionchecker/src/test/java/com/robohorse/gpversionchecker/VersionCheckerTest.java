@@ -2,8 +2,8 @@ package com.robohorse.gpversionchecker;
 
 import android.app.Activity;
 
-import com.robohorse.gpversionchecker.manager.UIManager;
 import com.robohorse.gpversionchecker.domain.Version;
+import com.robohorse.gpversionchecker.manager.UIManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,10 +22,8 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
 public class VersionCheckerTest {
-    @Mock
-    private Activity activity;
-    @Mock
-    private UIManager uiManager;
+    @Mock private Activity activity;
+    @Mock private UIManager uiManager;
 
     @Before
     public void setUp() {
