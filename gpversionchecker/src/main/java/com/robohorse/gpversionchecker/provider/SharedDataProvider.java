@@ -13,15 +13,17 @@ public class SharedDataProvider {
     private static final String GPVCH_VERSION = "gpvch_version";
 
     private final SharedPreferences sharedPreferences;
+    private final DateFormatUtils formatUtils;
 
-    public SharedDataProvider(SharedPreferences sharedPreferences) {
+    public SharedDataProvider(SharedPreferences sharedPreferences, DateFormatUtils formatUtils) {
         this.sharedPreferences = sharedPreferences;
+        this.formatUtils = formatUtils;
     }
 
     public void saveCurrentDate() {
         sharedPreferences
                 .edit()
-                .putLong(GPVCH_TIME, DateFormatUtils.formatTodayDate().getTime())
+                .putLong(GPVCH_TIME, formatUtils.formatTodayDate().getTime())
                 .apply();
     }
 

@@ -19,9 +19,11 @@ import java.util.Date;
 
 public class ServiceStartManager {
     private final SharedDataProvider sharedDataProvider;
+    private final DateFormatUtils formatUtils;
 
-    public ServiceStartManager(SharedDataProvider sharedDataProvider) {
+    public ServiceStartManager(SharedDataProvider sharedDataProvider, DateFormatUtils formatUtils) {
         this.sharedDataProvider = sharedDataProvider;
+        this.formatUtils = formatUtils;
     }
 
     public void checkAndStartService(Activity activity, CheckingStrategy strategy) {
@@ -35,7 +37,7 @@ public class ServiceStartManager {
             case ONE_PER_DAY: {
                 final long storedTime = sharedDataProvider.provideLastCheckTime();
                 final Date storedDate = new Date(storedTime);
-                final Date today = DateFormatUtils.formatTodayDate();
+                final Date today = formatUtils.formatTodayDate();
                 if (today.after(storedDate)) {
                     startService(activity);
                 }

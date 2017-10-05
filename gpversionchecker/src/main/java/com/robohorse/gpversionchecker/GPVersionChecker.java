@@ -1,6 +1,7 @@
 package com.robohorse.gpversionchecker;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.robohorse.gpversionchecker.domain.CheckingStrategy;
@@ -10,6 +11,7 @@ import com.robohorse.gpversionchecker.domain.Version;
 import com.robohorse.gpversionchecker.domain.VersionCheckedException;
 import com.robohorse.gpversionchecker.manager.ServiceStartManager;
 import com.robohorse.gpversionchecker.provider.SharedDataProvider;
+import com.robohorse.gpversionchecker.utils.DateFormatUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -72,9 +74,12 @@ public class GPVersionChecker {
         public Builder(Activity activity) {
             resetState(activity);
             uiManager = new UIManager();
-            final SharedDataProvider sharedDataProvider = new SharedDataProvider(PreferenceManager
-                    .getDefaultSharedPreferences(activity));
-            serviceStartManager = new ServiceStartManager(sharedDataProvider);
+
+            final DateFormatUtils formatUtils = new DateFormatUtils();
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
+            final SharedDataProvider sharedDataProvider = new SharedDataProvider(preferences, formatUtils);
+
+            serviceStartManager = new ServiceStartManager(sharedDataProvider, formatUtils);
         }
 
         protected Builder(Activity activity, UIManager uiManager) {

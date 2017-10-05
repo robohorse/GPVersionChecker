@@ -18,7 +18,7 @@ public class DateFormatUtils {
         formatter = new SimpleDateFormat(DATE_FORMAT, Locale.UK);
     }
 
-    public static Date formatTodayDate() {
+    public Date formatTodayDate() {
         final Date today = new Date(System.currentTimeMillis());
         try {
             return formatter.parse(formatter.format(today));
