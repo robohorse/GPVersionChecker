@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import com.robohorse.gpversionchecker.delegate.UIDelegate;
 import com.robohorse.gpversionchecker.domain.Version;
-import com.robohorse.gpversionchecker.provider.SharedDataProvider;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,8 +24,6 @@ import static org.junit.Assert.assertNotNull;
 public class VersionCheckerTest {
     @Mock
     private Activity activity;
-    @Mock
-    private SharedDataProvider sharedDataProvider;
     @Mock
     private UIDelegate uiDelegate;
 
@@ -54,7 +51,7 @@ public class VersionCheckerTest {
                 .build();
 
         new GPVersionChecker
-                .Builder(activity, uiDelegate, sharedDataProvider)
+                .Builder(activity, uiDelegate)
                 .create();
         GPVersionChecker.onResponseReceived(version, null);
         Mockito.verify(uiDelegate).showInfoView(activity, version);
@@ -67,7 +64,7 @@ public class VersionCheckerTest {
                 .build();
 
         new GPVersionChecker
-                .Builder(activity, uiDelegate, sharedDataProvider)
+                .Builder(activity, uiDelegate)
                 .create();
         GPVersionChecker.onResponseReceived(version, null);
         Mockito.verifyZeroInteractions(uiDelegate);
