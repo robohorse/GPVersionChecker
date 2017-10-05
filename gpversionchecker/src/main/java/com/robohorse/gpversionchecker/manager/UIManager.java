@@ -1,4 +1,4 @@
-package com.robohorse.gpversionchecker.delegate;
+package com.robohorse.gpversionchecker.manager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,7 +17,7 @@ import com.robohorse.gpversionchecker.domain.Version;
 /**
  * Created by robohorse on 06.03.16.
  */
-public class UIDelegate {
+public class UIManager {
 
     public void showInfoView(final Activity activity, final Version version) {
         activity.runOnUiThread(new Runnable() {

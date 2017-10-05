@@ -2,7 +2,7 @@ package com.robohorse.gpversionchecker;
 
 import android.app.Activity;
 
-import com.robohorse.gpversionchecker.delegate.UIDelegate;
+import com.robohorse.gpversionchecker.manager.UIManager;
 import com.robohorse.gpversionchecker.domain.Version;
 
 import org.junit.Before;
@@ -25,7 +25,7 @@ public class VersionCheckerTest {
     @Mock
     private Activity activity;
     @Mock
-    private UIDelegate uiDelegate;
+    private UIManager uiManager;
 
     @Before
     public void setUp() {
@@ -51,10 +51,10 @@ public class VersionCheckerTest {
                 .build();
 
         new GPVersionChecker
-                .Builder(activity, uiDelegate)
+                .Builder(activity, uiManager)
                 .create();
         GPVersionChecker.onResponseReceived(version, null);
-        Mockito.verify(uiDelegate).showInfoView(activity, version);
+        Mockito.verify(uiManager).showInfoView(activity, version);
     }
 
     @Test
@@ -64,9 +64,9 @@ public class VersionCheckerTest {
                 .build();
 
         new GPVersionChecker
-                .Builder(activity, uiDelegate)
+                .Builder(activity, uiManager)
                 .create();
         GPVersionChecker.onResponseReceived(version, null);
-        Mockito.verifyZeroInteractions(uiDelegate);
+        Mockito.verifyZeroInteractions(uiManager);
     }
 }

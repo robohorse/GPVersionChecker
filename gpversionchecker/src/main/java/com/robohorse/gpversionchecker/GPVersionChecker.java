@@ -1,13 +1,15 @@
 package com.robohorse.gpversionchecker;
 
 import android.app.Activity;
+import android.preference.PreferenceManager;
 
-import com.robohorse.gpversionchecker.base.CheckingStrategy;
-import com.robohorse.gpversionchecker.base.VersionInfoListener;
-import com.robohorse.gpversionchecker.delegate.UIDelegate;
+import com.robohorse.gpversionchecker.domain.CheckingStrategy;
+import com.robohorse.gpversionchecker.domain.VersionInfoListener;
+import com.robohorse.gpversionchecker.manager.UIManager;
 import com.robohorse.gpversionchecker.domain.Version;
 import com.robohorse.gpversionchecker.domain.VersionCheckedException;
 import com.robohorse.gpversionchecker.manager.ServiceStartManager;
+import com.robohorse.gpversionchecker.provider.SharedDataProvider;
 
 import java.lang.ref.WeakReference;
 
@@ -18,7 +20,7 @@ public class GPVersionChecker {
     private static WeakReference<Activity> activityWeakReference;
     private static VersionInfoListener versionInfoListener;
     private static CheckingStrategy strategy;
-    private static UIDelegate uiDelegate;
+    private static UIManager uiManager;
     private static ServiceStartManager serviceStartManager;
     public static boolean useLog;
 
@@ -36,7 +38,7 @@ public class GPVersionChecker {
 
             if (null != activity && !activity.isFinishing()) {
                 try {
-                    serviceStartManager.onResulted(activity, strategy, version);
+                    serviceStartManager.onResulted(strategy, version);
                 } catch (VersionCheckedException e) {
                     return;
                 }
@@ -53,7 +55,7 @@ public class GPVersionChecker {
                         }
                     });
                 } else if (null != version && version.isNeedToUpdate()) {
-                    uiDelegate.showInfoView(activity, version);
+                    uiManager.showInfoView(activity, version);
                 }
             }
         }
@@ -69,13 +71,15 @@ public class GPVersionChecker {
 
         public Builder(Activity activity) {
             resetState(activity);
-            uiDelegate = new UIDelegate();
-            serviceStartManager = new ServiceStartManager();
+            uiManager = new UIManager();
+            final SharedDataProvider sharedDataProvider = new SharedDataProvider(PreferenceManager
+                    .getDefaultSharedPreferences(activity));
+            serviceStartManager = new ServiceStartManager(sharedDataProvider);
         }
 
-        protected Builder(Activity activity, UIDelegate uiDelegate) {
+        protected Builder(Activity activity, UIManager uiManager) {
             resetState(activity);
-            GPVersionChecker.uiDelegate = uiDelegate;
+            GPVersionChecker.uiManager = uiManager;
         }
 
         /**

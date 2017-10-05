@@ -1,8 +1,6 @@
 package com.robohorse.gpversionchecker.provider;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.robohorse.gpversionchecker.domain.Version;
 import com.robohorse.gpversionchecker.utils.DateFormatUtils;
@@ -14,29 +12,31 @@ public class SharedDataProvider {
     private static final String GPVCH_TIME = "gpvch_time";
     private static final String GPVCH_VERSION = "gpvch_version";
 
-    public static void saveCurrentDate(Context context) {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences
+    private final SharedPreferences sharedPreferences;
+
+    public SharedDataProvider(SharedPreferences sharedPreferences) {
+        this.sharedPreferences = sharedPreferences;
+    }
+
+    public void saveCurrentDate() {
+        sharedPreferences
                 .edit()
                 .putLong(GPVCH_TIME, DateFormatUtils.formatTodayDate().getTime())
                 .apply();
     }
 
-    public static long provideLastCheckTime(Context context) {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getLong(GPVCH_TIME, 0L);
+    public long provideLastCheckTime() {
+        return sharedPreferences.getLong(GPVCH_TIME, 0L);
     }
 
-    public static void saveCurrentVersion(Context context, Version version) {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences
+    public void saveCurrentVersion(Version version) {
+        sharedPreferences
                 .edit()
                 .putString(GPVCH_VERSION, version.getNewVersionCode())
                 .apply();
     }
 
-    public static String provideLastVersionCode(Context context) {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(GPVCH_VERSION, null);
+    public String provideLastVersionCode() {
+        return sharedPreferences.getString(GPVCH_VERSION, null);
     }
 }

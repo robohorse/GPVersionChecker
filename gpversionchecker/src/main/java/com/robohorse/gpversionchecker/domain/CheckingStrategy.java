@@ -1,4 +1,4 @@
-package com.robohorse.gpversionchecker.base;
+package com.robohorse.gpversionchecker.domain;
 
 /**
  * Created by robohorse on 06.03.16.

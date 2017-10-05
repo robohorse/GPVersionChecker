@@ -1,4 +1,4 @@
-package com.robohorse.gpversionchecker.base;
+package com.robohorse.gpversionchecker.domain;
 
 import com.robohorse.gpversionchecker.domain.Version;
 
