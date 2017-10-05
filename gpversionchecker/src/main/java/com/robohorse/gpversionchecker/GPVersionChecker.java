@@ -103,7 +103,7 @@ public class GPVersionChecker {
         }
 
         /**
-         * Set strategy of version-checking: ALWAYS, ONE_PER_DAY, ONE_PER_VERSION
+         * Set strategy of version-checking: ALWAYS, ONE_PER_DAY, ONE_PER_VERSION, ONE_PER_VERSION_PER_DAY
          *
          * @return Builder
          */
