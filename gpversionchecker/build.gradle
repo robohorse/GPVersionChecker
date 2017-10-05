@@ -15,7 +15,7 @@ group='com.github.robohorse'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
         minSdkVersion 10
