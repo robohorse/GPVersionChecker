@@ -1,5 +1,6 @@
 # GPVersionChecker
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-GPVersionChecker-green.svg?style=true)](https://android-arsenal.com/details/1/3281)
+[![Build Status](https://travis-ci.org/robohorse/gpversionchecker.svg?branch=master)](https://travis-ci.org/robohorse/gpversionchecker)
 <p>
 Android Library for checking the current uploaded version on the Google Play
 </p>
