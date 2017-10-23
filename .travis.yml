@@ -1,0 +1,14 @@
+language: android
+android:
+  components:
+     Uncomment the lines below if you want to
+     use the latest revision of Android SDK Tools
+     - tools
+     - platform-tools
+
+branches:
+  only:
+    - master
+
+after_success:
+- ./gradlew jacoco coveralls
