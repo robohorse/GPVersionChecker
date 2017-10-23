@@ -20,7 +20,6 @@ coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
 }
 
-
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
