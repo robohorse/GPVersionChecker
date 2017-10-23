@@ -6,6 +6,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.2.3'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1'
     }
 }
 apply plugin: 'jacoco'
@@ -13,6 +14,12 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.robohorse'
+apply plugin: 'com.github.kt3k.coveralls'
+
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+}
+
 
 android {
     compileSdkVersion 26
@@ -104,4 +111,11 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
             "jacoco/testDebugUnitTest.exec",
             "outputs/code-coverage/connected/*coverage.ec"
     ])
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
 }
