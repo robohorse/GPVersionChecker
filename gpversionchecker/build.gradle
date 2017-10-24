@@ -49,7 +49,11 @@ android {
 }
 
 Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+try {
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+}catch (Exception e){
+    properties.load(project.rootProject.file('bintray.properties').newDataInputStream())
+}
 
 bintray {
     user = properties.getProperty("bintray.user")
