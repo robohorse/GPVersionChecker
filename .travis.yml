@@ -3,6 +3,7 @@ android:
   components:
      - tools
      - platform-tools
+     - android-26
 
 branches:
   only:
