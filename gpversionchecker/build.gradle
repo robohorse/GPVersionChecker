@@ -13,7 +13,7 @@ apply plugin: 'jacoco'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.robohorse'
+group = 'com.github.robohorse'
 apply plugin: 'com.github.kt3k.coveralls'
 
 coveralls {
@@ -51,7 +51,7 @@ android {
 Properties properties = new Properties()
 try {
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
-}catch (Exception e){
+} catch (Exception e) {
     properties.load(project.rootProject.file('bintray.properties').newDataInputStream())
 }
 
@@ -94,11 +94,12 @@ ext {
     allLicenses = ["MIT"]
 }
 
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+}
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
-
     reports {
         xml.enabled = true
         html.enabled = true
