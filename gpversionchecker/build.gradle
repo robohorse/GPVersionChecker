@@ -13,7 +13,7 @@ apply plugin: 'jacoco'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.robohorse'
+group = 'com.github.robohorse'
 apply plugin: 'com.github.kt3k.coveralls'
 
 coveralls {
@@ -49,11 +49,8 @@ android {
 }
 
 Properties properties = new Properties()
-try {
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-}catch (Exception e){
-    properties.load(project.rootProject.file('bintray.properties').newDataInputStream())
-}
+properties.load(project.rootProject.file('bintray.properties').newDataInputStream())
+
 
 bintray {
     user = properties.getProperty("bintray.user")
