@@ -17,7 +17,7 @@ group = 'com.github.robohorse'
 apply plugin: 'com.github.kt3k.coveralls'
 
 coveralls {
-    jacocoReportPath = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
 }
 
 android {
