@@ -62,7 +62,6 @@ bintray {
 
 dependencies {
     compile 'org.jsoup:jsoup:1.7.2'
-
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.0.86-beta'
     testCompile 'org.robolectric:robolectric:3.0'
