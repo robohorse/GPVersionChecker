@@ -11,4 +11,4 @@ branches:
     - master
 
 after_success:
-- ./gradlew jacoco coveralls
+- ./gradlew jacoco coveralls --stacktrace
