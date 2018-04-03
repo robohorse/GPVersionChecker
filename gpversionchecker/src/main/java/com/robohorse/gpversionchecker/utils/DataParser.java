@@ -12,8 +12,8 @@ import org.jsoup.nodes.Document;
  * Created by vadim on 17.07.16.
  */
 public class DataParser {
-    private static final String DIV_VERSION = "div[itemprop=softwareVersion]";
-    private static final String DIV_CHANGES = "div[class=recent-change]";
+    private static final String DIV_VERSION = "span[class=htlgb]";
+    private static final String DIV_CHANGES = "div[class=W4P4ne ]";
     private static final String DIV_DESCRIPTION = "div[itemprop=description]";
 
     public Version parse(Document document, final String currentVersion, final String url) {
