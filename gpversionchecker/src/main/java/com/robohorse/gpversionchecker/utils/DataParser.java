@@ -7,13 +7,14 @@ import com.robohorse.gpversionchecker.debug.ALog;
 import com.robohorse.gpversionchecker.domain.Version;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 /**
  * Created by vadim on 17.07.16.
  */
 public class DataParser {
     private static final String DIV_VERSION = "span[class=htlgb]";
-    private static final String DIV_CHANGES = "div[class=W4P4ne ]";
+    private static final String DIV_CHANGES = "div[class=DWPxHb.Vkfede]";
     private static final String DIV_DESCRIPTION = "div[itemprop=description]";
 
     public Version parse(Document document, final String currentVersion, final String url) {
@@ -21,6 +22,7 @@ public class DataParser {
                 .first()
                 .ownText();
 
+        final Elements elements = document.select(DIV_CHANGES);
         final String changes = String.valueOf(Html.fromHtml(document.select(DIV_CHANGES)
                 .html()));
 

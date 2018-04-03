@@ -1,11 +1,12 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
     }
 }
@@ -21,12 +22,11 @@ coveralls {
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1040000
         versionName "1.4.0"
     }
@@ -61,13 +61,13 @@ bintray {
 }
 
 dependencies {
-    compile 'org.jsoup:jsoup:1.7.2'
+    implementation 'org.jsoup:jsoup:1.9.2'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.86-beta'
-    testCompile 'org.robolectric:robolectric:3.0'
-    testCompile 'org.robolectric:shadows-multidex:3.0'
-    testCompile 'commons-io:commons-io:2.4'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.8.47'
+    testImplementation 'org.robolectric:robolectric:3.3.2'
+    testImplementation 'org.robolectric:shadows-multidex:3.0'
+    testImplementation 'commons-io:commons-io:2.5'
 }
 
 ext {
