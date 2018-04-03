@@ -7,13 +7,14 @@ import com.robohorse.gpversionchecker.debug.ALog;
 import com.robohorse.gpversionchecker.domain.Version;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 /**
  * Created by vadim on 17.07.16.
  */
 public class DataParser {
-    private static final String DIV_VERSION = "div[itemprop=softwareVersion]";
-    private static final String DIV_CHANGES = "div[class=recent-change]";
+    private static final String DIV_VERSION = "span[class=htlgb]";
+    private static final String DIV_CHANGES = "div[class=DWPxHb]";
     private static final String DIV_DESCRIPTION = "div[itemprop=description]";
 
     public Version parse(Document document, final String currentVersion, final String url) {
@@ -21,11 +22,20 @@ public class DataParser {
                 .first()
                 .ownText();
 
-        final String changes = String.valueOf(Html.fromHtml(document.select(DIV_CHANGES)
-                .html()));
-
         final String description = String.valueOf(Html.fromHtml(document.select(DIV_DESCRIPTION)
                 .html()));
+
+        String changes = null;
+        final Elements elements = document.select(DIV_CHANGES);
+        if (null != elements) {
+            final Elements changesElements = elements.select(DIV_CHANGES);
+            if (!changesElements.isEmpty()) {
+                changes = String.valueOf(Html.fromHtml(changesElements.last().html()));
+                if (TextUtils.equals(changes, description)) {
+                    changes = null;
+                }
+            }
+        }
 
         ALog.d("current version: " + currentVersion + "; google play version: " + newVersion);
 
