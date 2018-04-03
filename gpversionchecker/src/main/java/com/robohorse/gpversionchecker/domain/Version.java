@@ -19,6 +19,7 @@ public class Version implements Serializable {
         return newVersionCode == null ? "" : newVersionCode;
     }
 
+    @Deprecated
     public String getChanges() {
         return changes == null ? "" : changes;
     }
