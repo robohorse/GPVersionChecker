@@ -22,17 +22,20 @@ public class DataParser {
                 .first()
                 .ownText();
 
+        final String description = String.valueOf(Html.fromHtml(document.select(DIV_DESCRIPTION)
+                .html()));
+
         String changes = null;
         final Elements elements = document.select(DIV_CHANGES);
         if (null != elements) {
             final Elements changesElements = elements.select(DIV_CHANGES);
             if (!changesElements.isEmpty()) {
                 changes = String.valueOf(Html.fromHtml(changesElements.last().html()));
+                if (TextUtils.equals(changes, description)) {
+                    changes = null;
+                }
             }
         }
-
-        final String description = String.valueOf(Html.fromHtml(document.select(DIV_DESCRIPTION)
-                .html()));
 
         ALog.d("current version: " + currentVersion + "; google play version: " + newVersion);
 
