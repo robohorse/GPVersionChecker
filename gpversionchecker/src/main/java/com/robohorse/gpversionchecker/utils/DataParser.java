@@ -15,7 +15,6 @@ import org.jsoup.select.Elements;
 public class DataParser {
     private static final String DIV_VERSION = "span[class=htlgb]";
     private static final String DIV_CHANGES = "div[class=DWPxHb]";
-    private static final String DIV_CHANGES_INNER = "div[class=DWPxHb]";
     private static final String DIV_DESCRIPTION = "div[itemprop=description]";
 
     public Version parse(Document document, final String currentVersion, final String url) {
@@ -26,7 +25,7 @@ public class DataParser {
         String changes = null;
         final Elements elements = document.select(DIV_CHANGES);
         if (null != elements) {
-            final Elements changesElements = elements.select(DIV_CHANGES_INNER);
+            final Elements changesElements = elements.select(DIV_CHANGES);
             if (!changesElements.isEmpty()) {
                 changes = String.valueOf(Html.fromHtml(changesElements.last().html()));
             }
