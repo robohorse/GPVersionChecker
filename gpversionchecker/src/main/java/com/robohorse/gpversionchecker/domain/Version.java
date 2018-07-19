@@ -39,6 +39,10 @@ public class Version implements Serializable {
     public static class Builder {
         private Version instance;
 
+        public Builder(Version version) {
+            instance = version;
+        }
+
         public Builder() {
             instance = new Version();
         }

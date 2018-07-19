@@ -3,7 +3,6 @@ package com.robohorse.gpversionchecker;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 
 import com.robohorse.gpversionchecker.debug.ALog;
 import com.robohorse.gpversionchecker.domain.Version;
@@ -40,7 +39,21 @@ public class VersionCheckerService extends IntentService {
 
     private Version obtainDataFromGooglePlay() {
         try {
-            return obtainDataFromGooglePlayWithException();
+            final String currentVersion = getApplicationContext()
+                    .getPackageManager()
+                    .getPackageInfo(getApplicationContext().getPackageName(), 0)
+                    .versionName;
+            final Version checkVersion = obtainDataFromGooglePlayWithException(true, currentVersion);
+            final Version localizedVersion = obtainDataFromGooglePlayWithException(false, currentVersion);
+
+            final int newVersionValue = Integer.parseInt(DataParser.replaceNonDigits(checkVersion.getNewVersionCode()));
+            final int currentVersionValue = Integer.parseInt(DataParser.replaceNonDigits(currentVersion));
+            final boolean needToUpdate = newVersionValue > currentVersionValue;
+            return new Version
+                    .Builder(localizedVersion)
+                    .setNeedToUpdate(needToUpdate)
+                    .setNewVersionCode(checkVersion.getNewVersionCode())
+                    .build();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
             GPVersionChecker.onResponseReceived(null, throwable);
@@ -48,16 +61,12 @@ public class VersionCheckerService extends IntentService {
         return null;
     }
 
-    private Version obtainDataFromGooglePlayWithException()
-            throws IOException, NumberFormatException, PackageManager.NameNotFoundException {
+    private Version obtainDataFromGooglePlayWithException(boolean englishLanguage, String currentVersion)
+            throws IOException, NumberFormatException {
 
         final Context context = getApplicationContext();
         final String packageName = context.getPackageName();
-        final String currentVersion = context
-                .getPackageManager()
-                .getPackageInfo(packageName, 0)
-                .versionName;
-        final String language = Locale.getDefault().getLanguage();
+        final String language = englishLanguage ? Locale.ENGLISH.getLanguage() : Locale.getDefault().getLanguage();
 
         final String url = context.getString(R.string.gpvch_google_play_url) + packageName + "&hl=" + language;
         ALog.d("request params: package - " + packageName + ", current app version: " + currentVersion);
@@ -67,6 +76,6 @@ public class VersionCheckerService extends IntentService {
                 .userAgent(USER_AGENT)
                 .referrer(REFERRER)
                 .get();
-        return new DataParser().parse(document, currentVersion, url);
+        return new DataParser().parse(document, url);
     }
 }

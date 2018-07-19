@@ -26,6 +26,9 @@ public class GPVersionChecker {
     private static ServiceStartManager serviceStartManager;
     public static boolean useLog;
 
+    private GPVersionChecker() {
+    }
+
     private static void proceed() {
         final Activity activity = activityWeakReference.get();
         if (null == activity) {
