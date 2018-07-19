@@ -7,6 +7,7 @@ import com.robohorse.gpversionchecker.debug.ALog;
 import com.robohorse.gpversionchecker.domain.Version;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
@@ -18,9 +19,18 @@ public class DataParser {
     private static final String DIV_DESCRIPTION = "div[itemprop=description]";
 
     public Version parse(Document document, final String currentVersion, final String url) {
-        final String newVersion = document.select(DIV_VERSION)
-                .first()
-                .ownText();
+         String newVersion ="";
+        if (document != null) {
+            Elements element = document.getElementsContainingOwnText("Current Version");
+            for (Element ele : element) {
+                if (ele.siblingElements() != null) {
+                    Elements sibElemets = ele.siblingElements();
+                    for (Element sibElemet : sibElemets) {
+                        newVersion = sibElemet.text();
+                    }
+                }
+            }
+        }
 
         final String description = String.valueOf(Html.fromHtml(document.select(DIV_DESCRIPTION)
                 .html()));
