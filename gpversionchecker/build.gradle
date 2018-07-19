@@ -27,8 +27,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 27
-        versionCode 1050000
-        versionName "1.5.0"
+        versionCode 1060000
+        versionName "1.6.0"
     }
     testOptions {
         unitTests.all {
@@ -83,7 +83,7 @@ ext {
     siteUrl = 'https://github.com/robohorse/gpversionchecker'
     gitUrl = 'https://github.com/robohorse/gpversionchecker.git'
 
-    libraryVersion = '1.5.0'
+    libraryVersion = '1.6.0'
 
     developerId = 'robohorse'
     developerName = 'Vadim'
