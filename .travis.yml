@@ -3,12 +3,16 @@ android:
   components:
      - tools
      - platform-tools
-     - android-26
-     - build-tools-26.0.1
+     - android-29
+     - build-tools-29.0.2
 
 branches:
   only:
     - master
 
 after_success:
-- ./gradlew jacoco coveralls --stacktrace
+- ./gradlew test
+
+before_install:
+  - yes | sdkmanager "platforms;android-29"
+  - yes | sdkmanager "platforms;android-28"

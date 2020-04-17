@@ -2,13 +2,4 @@
     package="com.robohorse.gpversionchecker">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <application
-        android:allowBackup="true"
-        android:supportsRtl="true">
-
-        <service
-            android:name=".VersionCheckerService"
-            android:exported="false" />
-    </application>
 </manifest>
