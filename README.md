@@ -11,7 +11,7 @@ Android Library for checking the current uploaded version on the Google Play
 
 1) Just add this dependency into your build.gradle
 ```gradle
-implementation 'com.robohorse.gpversionchecker:gpversionchecker:1.6.0'
+implementation 'com.robohorse.gpversionchecker:gpversionchecker:1.7.0'
 implementation 'org.jsoup:jsoup:1.9.2'
 ```
 
@@ -28,7 +28,7 @@ allprojects {
 ```
 and:
 ```gradle
- implementation 'com.github.robohorse:gpversionchecker:1.6.0'
+ implementation 'com.github.robohorse:gpversionchecker:1.7.0'
  implementation 'org.jsoup:jsoup:1.9.2'
 ```
 
