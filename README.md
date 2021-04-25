@@ -11,12 +11,10 @@ Android Library for checking the current uploaded version on the Google Play
 1) Just add this dependency into your build.gradle
 
 ```gradle
-allprojects {
-    repositories {
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
-}
+ repositories {
+     mavenCentral()
+     maven { url "https://jitpack.io" }
+ }
 ```
 and:
 ```gradle
