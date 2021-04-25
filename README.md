@@ -13,7 +13,7 @@ Android Library for checking the current uploaded version on the Google Play
 ```gradle
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
         maven { url "https://jitpack.io" }
     }
 }
