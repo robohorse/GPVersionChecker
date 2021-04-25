@@ -28,7 +28,7 @@ and:
 ```kotlin
    GPVersionChecker.Builder(this).create()
 ```
-into your Activity.java
+into your Activity.kt
 
 ```kotlin
  override fun onCreate(savedInstanceState: Bundle?) {
