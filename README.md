@@ -20,7 +20,7 @@ allprojects {
 ```
 and:
 ```gradle
- implementation 'com.github.robohorse:gpversionchecker:1.7.1'
+ implementation 'com.github.robohorse:gpversionchecker:1.8.0'
  implementation 'org.jsoup:jsoup:1.9.2'
 ```
 
