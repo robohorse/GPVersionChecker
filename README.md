@@ -25,18 +25,17 @@ and:
 ```
 
 2) Add 
-```java 
-  new GPVersionChecker.Builder(this).create();
+```kotlin
+   GPVersionChecker.Builder(this).create()
 ```
 into your Activity.java
 
-```java
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
-        new GPVersionChecker.Builder(this).create();
+```kotlin
+ override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        GPVersionChecker.Builder(this).create()
     }
 ```
 
@@ -80,23 +79,26 @@ image by overriding ```gpvch_app_icon.xml```
 <b>&#8226; Version checking strategy</b>
 
 Add this to builder, and dialog will be shown once in day
-```java
+```kotlin
 .setCheckingStrategy(CheckingStrategy.ONE_PER_DAY)
 ```
 
 <b>&#8226; Usage info response only</b>
 
 The following code will block showing of the default dialog window, but gives information about current uploaded version
-```java
- new GPVersionChecker.Builder(this)
-                .setVersionInfoListener(new VersionInfoListener() {
-                   
-                    @Override
-                    public void onResulted(Version version) {
-                        
-                    }
-                })
-                .create();
+```kotlin
+    GPVersionChecker.Builder(activity = this)
+            .setVersionInfoListener(object : VersionInfoListener {
+                
+                override fun onResulted(version: Version?) {
+                    //TODO: Show your custom dialog here
+                }
+                
+                override fun onErrorHandled(throwable: Throwable?) {
+                    //TODO: Show your custom error notification here
+                }
+                
+            }).create()
 ```
 
 # ProGuard
