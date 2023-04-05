@@ -20,6 +20,13 @@ class DataParser(
                     }
                 }
             }
+
+            if (newVersion.isEmpty()) {
+                val matchVersionLayout = Regex(PATTERN_VERSION).find(document.html())
+                if (matchVersionLayout != null) {
+                    newVersion = matchVersionLayout.groupValues[1].trim()
+                }
+            }
         }
         var changes: String? = EMPTY_STRING
         var description: String? = EMPTY_STRING
@@ -54,4 +61,5 @@ class DataParser(
 private const val DIV_VERSION = "Current Version"
 private const val DIV_CHANGES = "div[class=DWPxHb]"
 private const val DIV_DESCRIPTION = "div[itemprop=description]"
+private const val PATTERN_VERSION = """\[\[\["([\d.]+?)"\]\]"""
 private const val EMPTY_STRING = ""
