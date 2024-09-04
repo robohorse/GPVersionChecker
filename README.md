@@ -1,3 +1,7 @@
+# Deprecated
+Please use the official In-app updates library https://developer.android.com/guide/playcore/in-app-updates
+
+
 # GPVersionChecker
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-GPVersionChecker-green.svg?style=true)](https://android-arsenal.com/details/1/3281)
 [![Build Status](https://travis-ci.org/robohorse/gpversionchecker.svg?branch=master)](https://travis-ci.org/robohorse/gpversionchecker)
